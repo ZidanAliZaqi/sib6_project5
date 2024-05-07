@@ -50,13 +50,19 @@ def user():
         )
         db.session.add(user)
         db.session.commit()
-        return jsonify("status": "ok")
+        return jsonify({"status": "ok"})
     elif request.method == 'PUT':
-        pass #dilanjutkan oleh temen temen
+        user = Users.query.filter_by(id=request.form['user_id']).first()
+        if user:
+            user.name = request.form.get('name', user.name)
+            user.city = request.form.get('city', user.city)
+            user.telp = request.form.get('telp', user.telp)
+            db.session.commit()
+            return jsonify({"status": "ok"})
     elif request.method == 'DELETE':
         user = Users.query.filter_by(id=request.form['user_id']).delete()
         db.session.commit()
-        return jsonify("status": "ok")
+        return jsonify({"status": "ok"})
     else :
         return 'Method not Allowed'
 
@@ -65,8 +71,8 @@ def user():
 def user_by_id(id):
     user = Users.query.filter_by(id=id)
     try :
-         results = [{"id": u.id, "name": u.name, "city": u.city, "telp": u.telp}for u in users][0]
-          return jsonify(results)
+        results = [{"id": u.id, "name": u.name, "city": u.city, "telp": u.telp}for u in users][0]
+        return jsonify(results)
     except Exception:
         return jsonify({'error'  "id not found":})
 
