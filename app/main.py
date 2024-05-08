@@ -3,19 +3,22 @@ from decouple import config
 import psycopg2
 from flask_sqlalchemy import SQLAlchemy
 
-DB_URI = f"postgresql+psycopg2://{config('MB_DB_USER')}:{config('MB_DB_PASS')}" \
-         f"@{config('MB_DB_HOST')}:{str(config('MB_DB_PORT'))}/{config('MB_DB_DBNAME')}"
+DB_URI = (
+    f"postgresql+psycopg2://{config('MB_DB_USER')}:{config('MB_DB_PASS')}"
+    f"@{config('MB_DB_HOST')}:{str(config('MB_DB_PORT'))}/{config('MB_DB_DBNAME')}"
+)
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = DB_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+
 db = SQLAlchemy(app)
 
-class Users(db.Model):
-    id = db.column('user_id', db.Integer, primary_key=True)
-    name = db.column(db.String(100))
-    city = db.column(db.String(50))
-    telp = db.column(db.String(14))
 
+class Users(db.Model):
+    id = db.Column('user_id', db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
+    city = db.Column(db.String(50))
+    telp = db.Column(db.String(14))
 
 
 @app.route("/health")
@@ -36,11 +39,14 @@ def db_check():
     return jsonify({"status": 200, "db": "connected"})
 
 
-@app.route('/users', methods=["GET","POST","PUT","DELETE" ])
+@app.route('/users', methods=["GET", "POST", "PUT", "DELETE"])
 def user():
     if request.method == 'GET':
         users = Users.query.all()
-        results = [{"id": u.id, "name": u.name, "city": u.city, "telp": u.telp}for u in users]
+        results = [
+            {"id": u.id, "name": u.name, "city": u.city, "telp": u.telp}
+            for u in users
+        ]
         return jsonify(results)
     elif request.method == 'POST':
         user = Users(
@@ -60,21 +66,22 @@ def user():
             db.session.commit()
             return jsonify({"status": "ok"})
     elif request.method == 'DELETE':
-        user = Users.query.filter_by(id=request.form['user_id']).delete()
+        Users.query.filter_by(id=request.form['user_id']).delete()
         db.session.commit()
         return jsonify({"status": "ok"})
-    else :
+    else:
         return 'Method not Allowed'
 
 
 @app.route("/user/<id>", methods=['GET'])
 def user_by_id(id):
-    user = Users.query.filter_by(id=id)
-    try :
-        results = [{"id": u.id, "name": u.name, "city": u.city, "telp": u.telp}for u in users][0]
-        return jsonify(results)
-    except Exception:
-        return jsonify({'error'  "id not found":})
+    user = Users.query.filter_by(id=id).first()
+    if user:
+        result = {"id": user.id, "name": user.name, "city": user.city, "telp": user.telp}
+        return jsonify(result)
+    else:
+        return jsonify({'error': "id not found"}), 404
+
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0")
