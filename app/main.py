@@ -29,11 +29,11 @@ def health():
 @app.route("/db_check")
 def db_check():
     conn_pg = psycopg2.connect(
-        host=config('MD_DB_HOST'),
-        database=config('MD_DB_DBNAME'),
-        user=config('MD_DB_USER'),
-        password=config('MD_DB_PASS'),
-        port=int(config('MD_DB_PORT')),
+        host=config('MB_DB_HOST'),
+        database=config('MB_DB_DBNAME'),
+        user=config('MB_DB_USER'),
+        password=config('MB_DB_PASS'),
+        port=int(config('MB_DB_PORT')),
     )
     cur = conn_pg.cursor()
     return jsonify({"status": 200, "db": "connected"})

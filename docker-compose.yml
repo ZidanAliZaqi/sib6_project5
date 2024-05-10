@@ -15,12 +15,12 @@ services:
   flask-app:
     image: project5
     environment: 
-      MD_DB_DBNAME: sample
-      MD_DB_HOST: postgres-db
-      MD_DB_PASS: admin
-      MD_DB_PORT: 5432
-      MD_DB_TYPE: postgres
-      MD_DB_USER: postgres
+      MB_DB_DBNAME: sample
+      MB_DB_HOST: postgres-db
+      MB_DB_PASS: admin
+      MB_DB_PORT: 5432
+      MB_DB_TYPE: postgres
+      MB_DB_USER: postgres
     volumes:
       - ./app:/app
     links:
