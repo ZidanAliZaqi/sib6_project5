@@ -3,13 +3,14 @@
 
 Tools yang harus disiapkan:
 
-- docker
-- postman
-- visual code
+- Docker
+- Postman
+- Visual Code Studio
+- DBeaver
 
 API yang dibuat:
 
-- create user
-- update user
-- get user
-- delete user
+- Create User
+- Update User
+- Get User
+- Delete User
