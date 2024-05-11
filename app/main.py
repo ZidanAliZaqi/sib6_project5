@@ -14,6 +14,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 db = SQLAlchemy(app)
 
 
+
 class Users(db.Model):
     id = db.Column('user_id', db.Integer, primary_key=True)
     name = db.Column(db.String(100))
