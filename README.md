@@ -47,6 +47,7 @@ CREATE TABLE public.users (
     telp varchar(14) NULL,
     CONSTRAINT users_pkey PRIMARY KEY (user_id)
 );
+```
 
 7. Run pada localhost:5000 untuk mengetahui apakah Flask bisa terkoneksi dengan database menggunakan psycopg2.
 
