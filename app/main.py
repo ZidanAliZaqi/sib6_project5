@@ -66,7 +66,7 @@ def user():
             db.session.commit()
             return jsonify({"status": "ok"})
     elif request.method == 'DELETE':
-        Users.query.filter_by(id=request.form['user_id']).delete()
+        user = Users.query.filter_by(id=request.form['user_id']).delete()
         db.session.commit()
         return jsonify({"status": "ok"})
     else:
@@ -75,9 +75,9 @@ def user():
 
 @app.route("/user/<id>", methods=['GET'])
 def user_by_id(id):
-    user = Users.query.filter_by(id=id)
+    users = Users.query.filter_by(id=id)
     try:
-        results = [{"id": u.id, "name": u.name, "city": u.city, "telp": u.telp}for u in user][0]
+        results = [{"id": u.id, "name": u.name, "city": u.city, "telp": u.telp}for u in users][0]
         return jsonify(results)
     except Exception:
         return jsonify({'error': "id not found"})
