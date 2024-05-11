@@ -39,7 +39,7 @@ def db_check():
     return jsonify({"status": 200, "db": "connected"})
 
 
-@app.route('/users', methods=["GET", "POST", "PUT", "DELETE"])
+@app.route('/user', methods=["GET", "POST", "PUT", "DELETE"])
 def user():
     if request.method == 'GET':
         users = Users.query.all()
