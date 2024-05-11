@@ -75,12 +75,12 @@ def user():
 
 @app.route("/user/<id>", methods=['GET'])
 def user_by_id(id):
-    user = Users.query.filter_by(id=id).first()
-    if user:
-        result = {"id": user.id, "name": user.name, "city": user.city, "telp": user.telp}
-        return jsonify(result)
-    else:
-        return jsonify({'error': "id not found"}), 404
+    user = Users.query.filter_by(id=id)
+    try:
+        results = [{"id": u.id, "name": u.name, "city": u.city, "telp": u.telp}for u in user][0]
+        return jsonify(results)
+    except Exception:
+        return jsonify({'error': "id not found"})
 
 
 if __name__ == "__main__":
