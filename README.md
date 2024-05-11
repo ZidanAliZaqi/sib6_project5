@@ -18,9 +18,9 @@ API yang dibuat:
 # Langkah-langkah
 1. Buat File docker-compose.yml
 
-Buat file docker-compose.yml. Tentukan service dan setting environment-nya, juga build volume external untuk menyimpan data ke lokal. Lalu jalankan `docker-compose up -d`.
+   Buat file docker-compose.yml. Tentukan service dan setting environment-nya, juga build volume external untuk menyimpan data ke lokal. Lalu jalankan `docker-compose up -d`.
 
-Catatan: Buat docker-compose untuk PostgreSQL dahulu untuk memastikan kita sudah terhubung dengan PostgreSQL lewat DBeaver. Jika berhasil, tambahkan docker-compose untuk Flask.
+   Catatan: Buat docker-compose untuk PostgreSQL dahulu untuk memastikan kita sudah terhubung dengan PostgreSQL lewat DBeaver. Jika berhasil, tambahkan docker-compose untuk Flask.
 
 2. Jika sudah berhasil menjalankan file docker-compose, selanjutnya koneksikan pada database dengan host, database, user, password, dan port yang sesuai dengan setting environments di docker-compose sebelumnya. Pastikan koneksi berhasil.
 
